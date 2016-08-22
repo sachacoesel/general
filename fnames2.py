@@ -97,11 +97,5 @@ for seq_record in SeqIO.parse(input_fasta, "fasta"):
     out_record = SeqRecord(seq_record.seq, id= new_header, description="")
     SeqIO.write(out_record, output_fasta, "fasta")
 
-
-
-
-
-
-
-
-# write the friendly header to an output file
+input_fasta.close()
+output_fasta.close()
