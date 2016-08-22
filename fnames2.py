@@ -22,6 +22,8 @@ coolgenes.fn.fasta
 # load packages
 from os import sys
 from Bio import SeqIO
+from Bio.SeqRecord import SeqRecord
+
 
 def usage():
     print "usage: fnames2.py input.fasta"
@@ -89,10 +91,12 @@ for seq_record in SeqIO.parse(input_fasta, "fasta"):
     # print seq_record.description
     if db_type == "jgi":
         new_header = parse_jgi_header(seq_record.description)
-        print new_header
     elif db_type == "mmetsp":
         new_header = parse_mmetsp_header(seq_record.description)
-        print new_header
+    # write out seq_record and sequence
+    out_record = SeqRecord(seq_record.seq, id= new_header, description="")
+    SeqIO.write(out_record, output_fasta, "fasta")
+
 
 
 
