@@ -65,13 +65,14 @@ def parse_mmetsp_header(mmetsp_header):
         elt = elt.lstrip("/")
         if header_elts[2] == 'TAXON_ID=39447 ':
             return "Gymnodinium_catenatum_" + header_elts[0][7:]
-        org_index = elt.find("ORGANISM")
+        org_index = elt.find("ORGANISM=")
         if org_index != -1:
             new_header = elt[(org_index+10):]
             new_header = new_header.split(",")[0]
             new_header = new_header.replace("\"","")
             new_header = new_header.replace(" ","_")
             new_header = new_header.replace(".","")
+            new_header = new_header.strip("_")
             new_header = new_header + "_" + header_elts[0][7:]
             return new_header
 

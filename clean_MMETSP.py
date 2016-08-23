@@ -9,9 +9,13 @@ import os
 from Bio import SeqIO
 
 
-# MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/CAM_P_0001000.pep.fa"
-test_MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/mini_CAM.fa"
+# MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/CAM_P_0001000.pep.fa" # RDG local
+# MMETSP_FASTA_PATH = "/share/data/seq/projects/diatom_est/finalized_data/CAM_P_0001000.pep.fa" # on bloom
+# MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/mini_CAM.fa" # for testing purposes
+MMETSP_FASTA_PATH = "/home/rgrous83/sandbox/fnames_test/CAM.test.fasta" # for testing on bloom
 
+# OUT_DIR = "//Users/rgroussman/data/MMETSP/clean_mmetsp/" # local
+OUT_DIR = "/share/data/seq/projects/diatom_est/finalized_data/cleaned_mmetsp/" # for bloom
 
 
 def make_fasta_handle(binomial_fasta):
@@ -65,8 +69,7 @@ def parse_mmetsp_header(mmetsp_header):
             return new_header
 
 # open the MMETSP file
-mmetsp_fasta = open(test_MMETSP_FASTA_PATH, 'r')
-OUT_DIR = "/Users/rgroussman/Dropbox/Armbrust/bioinfo/scripts/clean_mmetsp/"
+mmetsp_fasta = open(MMETSP_FASTA_PATH, 'r')
 
 for seq in SeqIO.parse(mmetsp_fasta, "fasta"):
 
