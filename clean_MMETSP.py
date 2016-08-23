@@ -8,12 +8,12 @@
 import os
 from Bio import SeqIO
 
-
+### Hard-coded directories for important files
+# Path for MMETSP fasta file
 # MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/CAM_P_0001000.pep.fa" # RDG local
-# MMETSP_FASTA_PATH = "/share/data/seq/projects/diatom_est/finalized_data/CAM_P_0001000.pep.fa" # on bloom
-# MMETSP_FASTA_PATH = "/Users/rgroussman/data/MMETSP/mini_CAM.fa" # for testing purposes
-MMETSP_FASTA_PATH = "/home/rgrous83/sandbox/fnames_test/CAM.test.fasta" # for testing on bloom
+MMETSP_FASTA_PATH = "/share/data/seq/projects/diatom_est/finalized_data/CAM_P_0001000.pep.fa" # on bloom
 
+# Directory to write out results
 # OUT_DIR = "//Users/rgroussman/data/MMETSP/clean_mmetsp/" # local
 OUT_DIR = "/share/data/seq/projects/diatom_est/finalized_data/cleaned_mmetsp/" # for bloom
 
@@ -32,7 +32,6 @@ def open_new_fasta(binomial):
     out_fasta = open(fasta_handle,"a")
 
 def close_old_fasta(binomial_fasta):
-
     """If the given old binomial_fasta exists; close it"""
     fasta_handle = make_fasta_handle(binomial_fasta)
 
@@ -41,12 +40,8 @@ def close_old_fasta(binomial_fasta):
         out_fasta.close()
 
 def write_seq_to_fasta(seq, binomial_fasta):
-    """NOTHING YET HAHA"""
+    """Will write out the current sequence to the current out_fasta file"""
 
-    print seq
-    print binomial_fasta
-    print make_fasta_handle(binomial_fasta)
-    print
     SeqIO.write(seq, out_fasta, "fasta")
 
 def parse_mmetsp_header(mmetsp_header):
@@ -71,6 +66,7 @@ def parse_mmetsp_header(mmetsp_header):
 # open the MMETSP file
 mmetsp_fasta = open(MMETSP_FASTA_PATH, 'r')
 
+# This loop runs through the entire MMETSP fasta file
 for seq in SeqIO.parse(mmetsp_fasta, "fasta"):
 
     # Get the binomial name from the fasta headers
@@ -79,6 +75,7 @@ for seq in SeqIO.parse(mmetsp_fasta, "fasta"):
     # For the first sequence
     binomial_fasta = False
 
+    # check to see if the current seq binomial matches the output_fasta
     if binomial == binomial_fasta:
         write_seq_to_fasta(seq, binomial_fasta)
 
